@@ -7,3 +7,7 @@ body {
 #formulario-pergunta{
     margin-top: 5vh; /* % da tele */
 }
+
+.card-respostas{
+    margin-top: 10px;
+}

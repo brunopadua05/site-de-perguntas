@@ -12,7 +12,7 @@ connection
     })
     .catch((msgErro) => {
         console.log(msgErro);
-})
+    })
 
 const app = express();
 
@@ -21,14 +21,16 @@ app.set('view engine', 'ejs');
 //Adicionando aquivos estaticos, aquivos nao processados no backend (css, img, etc...)
 app.use(express.static('public'));
 
-app.use(bodyParses.urlencoded({extended: false})); // ativando bory-parses...
+app.use(bodyParses.urlencoded({ extended: false })); // ativando bory-parses...
 app.use(bodyParses.json()); //leitura de dados enviados via json...
 
 //Crição de rota
 app.get("/", (req, res) => {
-    Pergunta.findAll({ raw: true, order: [
-        ['id','DESC'] //ASC = Crescente || DESC = Decrescente...
-    ]}).then(perguntas => {
+    Pergunta.findAll({
+        raw: true, order: [
+            ['id', 'DESC'] //ASC = Crescente || DESC = Decrescente...
+        ]
+    }).then(perguntas => {
         res.render("index", {
             perguntas: perguntas
         });
@@ -40,11 +42,11 @@ app.get("/perguntar", (req, res) => {
 });
 
 app.post("/salvarpergunta", (req, res) => {
-//recebendo dados do form e salvando em variáveis...
+    //recebendo dados do form e salvando em variáveis...
     var titulo = req.body.titulo;
     var descricao = req.body.descricao;
-    
-//passando os dados para inclusão no bando de dados...
+
+    //passando os dados para inclusão no bando de dados...
     Pergunta.create({
         titulo: titulo,
         descricao: descricao
@@ -56,12 +58,22 @@ app.post("/salvarpergunta", (req, res) => {
 app.get("/pergunta/:id", (req, res) => {
     var id = req.params.id;
     Pergunta.findOne({
-        where: {id: id}
+        where: { id: id }
     }).then(pergunta => {
         if (pergunta != undefined) { //Pergunta encontrada...
-            res.render("pergunta", {
-                pergunta : pergunta
+
+            Resposta.findAll({
+                where: { perguntaid: pergunta.id  },
+                order:[
+                    ['id', 'DESC']
+                ]
+            }).then(respostas => {
+                res.render("pergunta", {
+                    pergunta: pergunta,
+                    respostas: respostas
+                });
             });
+
         } else { //Não encontrada...
             res.redirect("/");
         }
@@ -82,7 +94,7 @@ app.post("/responder", (req, res) => {
 
 
 //Criação servidor...
-app.listen(8080, ()=> {
+app.listen(8080, () => {
     console.log("App rodando");
 });
 
