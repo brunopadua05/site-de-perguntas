@@ -9,6 +9,7 @@
         <div class="card">
             <div class="card-header">
                 <h4><%= pergunta.titulo%></h4>
+                <p class="data-pergunta"> Postado em <%= moment(pergunta.createdAt).format('DD/MM/YYYY') %></p> 
                 <p><%= pergunta.descricao%></p>
             </div>
             <div class="card-body">
@@ -17,7 +18,7 @@
                     <textarea placeholder="Digite sua resposta!" class="form-control" name="corpo" required></textarea>
                     <br>
                     <input type="hidden" name="pergunta" value=" <%= pergunta.id %>">
-                    <button class="btn btn-primary">Responder</button>
+                    <button class="btn btn-primary">Responder</button>              
                 </form>
             </div>
         </div>
@@ -27,6 +28,10 @@
         <div class="card card-respostas">
             <div class="card-body">
                 <%= resposta.resposta %>
+                <div >
+                    <p class="data-resposta"> Respondido em <%= moment(resposta.createdAt).format('DD/MM/YYYY hh:mm:ss A') %></p>
+                </div>
+                
             </div>
         </div>
         <% }) %>

@@ -13,9 +13,11 @@
         <div class="card">
             <div class="card-body">
                 <h5> <%= pergunta.titulo %> </h5>
+                <p class="data-pergunta"> Postado em <%= moment(pergunta.createdAt).format('DD/MM/YYYY') %></p>                                    
             </div>
             <div class="card-footer">
-                <a href="/pergunta/<%=pergunta.id %>"> <button class="btn btn-primary">Responder</button></a>
+                <a href="/pergunta/<%=pergunta.id%>"> 
+                <button class="btn btn-primary">Responder</button></a>
             </div>
         </div>
         <% }) %>

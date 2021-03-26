@@ -3,9 +3,16 @@ body {
     background-color: #eceff1;
 }
 
+/*Fixa menu no topo*/
+.menu {
+    position: sticky; 
+    top: 0;
+    z-index: 9999; 
+}
+
 /*Margem ao topo*/
 #formulario-pergunta{
-    margin-top: 5vh; /* % da tele */
+    margin-top: 5vh; /* % da tela */
 }
 
 .card-respostas{
@@ -15,3 +22,16 @@ body {
 .footer {
     margin-top: 15px;
 }
+
+.data-pergunta {
+    font-size: 10px;  
+}
+
+.data-resposta {
+    margin-top: 20px;
+    margin-bottom: -6px;
+    
+    font-size: 10px;
+    text-align: right;
+}
+
